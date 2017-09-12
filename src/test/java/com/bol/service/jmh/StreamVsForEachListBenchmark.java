@@ -1,5 +1,6 @@
 package com.bol.service.jmh;
 
+import org.junit.Test;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.infra.Blackhole;
 import org.openjdk.jmh.results.RunResult;
@@ -13,7 +14,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class JmhBenchmark {
+public class StreamVsForEachListBenchmark {
+
+    @Test
+    public void benchmark() throws Exception {
+        StreamVsForEachListBenchmark orcaJmhBenchmark = new StreamVsForEachListBenchmark();
+        orcaJmhBenchmark.runJmh();
+    }
 
     public void runJmh() throws Exception {
         Options opt = new OptionsBuilder()
@@ -51,7 +58,7 @@ public class JmhBenchmark {
     }
 
     @Benchmark
-    public void zforeach(Blackhole blackhole) {
+    public void foreach(Blackhole blackhole) {
         List<Integer> list = new ArrayList<>(127);
         OBJECTS.iterator().forEachRemaining(i -> foo(i, list));
         blackhole.consume(list);
